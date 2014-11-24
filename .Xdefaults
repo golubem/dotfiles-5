@@ -1,0 +1,51 @@
+! .Xdefaults file
+
+!black
+*color0: #212121
+*color8: #636363
+
+!red
+*color1: #cd0000
+*color9: #cd0000
+
+!green
+*color2: #687c97
+*color10: #687c97
+
+!yellow
+*color3: #f2f2f2
+*color11: #687c97
+
+!blue
+*color4: #687c97
+*color12: #687c97
+
+!magenta
+*color5: #a1a1a1
+*color13: #f2f2f2
+
+!cyan
+*color6: #d3d3d3
+*color14: #d3d3d3
+
+!white
+*color7: #eee9e9
+*color15: #a0a0a0
+
+urxvt*background: #121212
+urxvt*foreground: #c2c2c2
+
+urxvt*transparent: false
+urxvt*shading: 5
+urxvt*saveLines: 4500
+urxvt*scrollBar: false
+urxvt*letterSpace: -1
+urxvt*cursorBlink: true
+urxvt*urlLauncher: firefox
+urxvt*perl-ext-common: osc-xterm-clipboard
+
+! fonts settings
+
+urxvt*font: xft:Pragmata Pro:regular:size=10, xft:Tewi:regular:size=10
+
+! end
