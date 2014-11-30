@@ -32,7 +32,7 @@ myLayoutHook =
     onWorkspace (myWorkspaces !! 5 ) ( full ||| fullSp ) $
     onWorkspace (myWorkspaces !! 6 ) ( full ||| tiled ||| fullSp ) $
     full ||| tiled ||| fullSp
-    where
+  where
     tiled           = spacing 0 $ Tall master delta ratio
     defaultTall     = ResizableTall 1 (1/100) (1/2) []
     master          = 1
@@ -53,7 +53,21 @@ myManageHook = manageDocks <+> compHook <+> manageHook defaultConfig
                  , className =? "Plasma-desktop" --> doFloat
                  ]
 
+myLogHook xmproc = dynamicLogWithPP $ compPP { ppOutput = hPutStrLn xmproc }
+  where
+    compPP = defaultPP {
+        ppHidden  = xmobarColor "#a9acb6" ""
+      , ppCurrent = xmobarColor "#e2e2e2" "" . wrap "⠲" ""
+      , ppUrgent  = xmobarColor "#a9acb6" "" . wrap "*" "*"
+      , ppLayout  = xmobarColor "#ff0000" ""
+      , ppTitle   = (\str -> "")
+      , ppOrder   = \(ws:_:t:_) -> [ws, t]
+      , ppSep     = "<fc=#a9acb6> | </fc>"
+   }
+
+
 main = do
+    xmproc <- spawnPipe "/usr/bin/xmobar /home/mathcrosp/.xmonad/xmobarrc.hs"
     spawn "setxkbmap -layout 'us,ru' -option gpr:caps_toggle"
     xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig {
         layoutHook         = avoidStruts $ myLayoutHook
@@ -64,6 +78,7 @@ main = do
       , normalBorderColor  = myBorderColor
       , focusedBorderColor = myFocusedColor
       , manageHook         = manageHook kdeConfig <+> myManageHook
+      , logHook            = myLogHook xmproc
       , focusFollowsMouse  = True
       , clickJustFocuses   = True
     } `additionalKeys`
@@ -74,7 +89,7 @@ main = do
       , (( myModMask, xK_o ), spawn "okteta")
       , (( myModMask .|. shiftMask , xK_x ), spawn "gvim")
       , (( myModMask .|. shiftMask , xK_f ), spawn "pidgin")
-      , (( myModMask .|. shiftMask , xK_t ), spawn "dolphin")
+      , (( myModMask .|. shiftMask , xK_t ), spawn "nautilus")
       , (( myModMask .|. shiftMask , xK_b ), spawn "firefox")
       , (( myModMask .|. shiftMask , xK_w ), spawn "wireshark")
       , (( myModMask .|. shiftMask , xK_p ), spawn "clementine")
@@ -85,6 +100,10 @@ main = do
       , (( myModMask .|. shiftMask , xK_v ), spawn "urxvt -e bash -c vifm")
       , (( myModMask .|. shiftMask , xK_n ), spawn "urxvt -e bash -c alsamixer")
       , (( myModMask .|. shiftMask , xK_z ), spawn "urxvt -e bash -c 'tmux a -t 0'")
+      -- cmus
+      , (( myModMask, xK_Left), spawn "cmus-remote --prev")
+      , (( myModMask, xK_Down), spawn "cmus-remote --pause")
+      , (( myModMask, xK_Right), spawn "cmus-remote --next")
       ]
       `additionalKeysP`
       [ ("M-z", spawn "urxvt")
