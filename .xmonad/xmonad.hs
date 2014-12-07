@@ -47,10 +47,7 @@ myManageHook = manageDocks <+> compHook <+> manageHook defaultConfig
                  [ className =? "Firefox"        --> doShift "5"
                  , resource  =? "feh"            --> doShift "6"
                  , className =? "Pidgin"         --> doShift "4"
-                 , className =? "Thunderbird"    --> doShift "4"
                  , className =? "VirtualBox"     --> doShift "7"
-                 , className =? "Plasma"         --> doFloat
-                 , className =? "Plasma-desktop" --> doFloat
                  ]
 
 myLogHook xmproc = dynamicLogWithPP $ compPP { ppOutput = hPutStrLn xmproc }
@@ -86,24 +83,25 @@ main = do
       , (( myModMask .|. shiftMask , xK_Print ), spawn "scrot -d 3")
       , (( controlMask, xK_F7 ), spawn "sleep 1 && xset dpms force off")
       -- apps
-      , (( myModMask, xK_o ), spawn "okteta")
+      , (( myModMask, xK_o ), spawn "wxHexEditor")
       , (( myModMask .|. shiftMask , xK_x ), spawn "gvim")
+      , (( myModMask .|. shiftMask , xK_g ), spawn "gimp")
       , (( myModMask .|. shiftMask , xK_f ), spawn "pidgin")
       , (( myModMask .|. shiftMask , xK_t ), spawn "nautilus")
       , (( myModMask .|. shiftMask , xK_b ), spawn "firefox")
-      , (( myModMask .|. shiftMask , xK_w ), spawn "wireshark")
-      , (( myModMask .|. shiftMask , xK_p ), spawn "clementine")
-      , (( myModMask .|. shiftMask , xK_o ), spawn "VirtualBox")
+      , (( myModMask .|. shiftMask , xK_o ), spawn "/opt/bin/VirtualBox")
       , (( myModMask .|. shiftMask , xK_d ), spawn "monodevelop")
-      , (( myModMask .|. shiftMask , xK_m ), spawn "thunderbird")
       , (( myModMask .|. shiftMask , xK_i ), spawn "/home/mathcrosp/.ida651/idaq")
       , (( myModMask .|. shiftMask , xK_v ), spawn "urxvt -e bash -c vifm")
+      , (( myModMask .|. shiftMask , xK_p ), spawn "urxvt -e bash -c ncmpcpp")
       , (( myModMask .|. shiftMask , xK_n ), spawn "urxvt -e bash -c alsamixer")
       , (( myModMask .|. shiftMask , xK_z ), spawn "urxvt -e bash -c 'tmux a -t 0'")
-      -- cmus
-      , (( myModMask, xK_Left), spawn "cmus-remote --prev")
-      , (( myModMask, xK_Down), spawn "cmus-remote --pause")
-      , (( myModMask, xK_Right), spawn "cmus-remote --next")
+      -- mpd
+      , (( myModMask, xK_Left), spawn "mpc prev")
+      , (( myModMask .|. shiftMask, xK_Left), spawn "mpc seek -00:00:05")
+      , (( myModMask, xK_Down), spawn "mpc toggle")
+      , (( myModMask .|. shiftMask, xK_Right), spawn "mpc seek +00:00:05")
+      , (( myModMask, xK_Right), spawn "mpc next")
       ]
       `additionalKeysP`
       [ ("M-z", spawn "urxvt")
