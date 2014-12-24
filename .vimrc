@@ -14,19 +14,21 @@ set smartindent
 set wildmenu
 set completeopt=longest,menuone
 filetype plugin on
+set backspace=indent,eol,start
 
 " gui options
 set guioptions-=T
 set guioptions-=m
 set guioptions-=r
 set guioptions-=L
-set guifont=PragmataPro\ 10
+set guifont=PragmataPro\ 10.5
 
-" colorsheme
+" colorscheme and window size
 if has('gui_running')
-        colorscheme Tomorrow-Night
+    colorscheme Tomorrow-Night-Blue
+    set lines=35 columns=85
 else
-        colorscheme delek
+    colorscheme elflord
 endif
 
 " remove unwanted whitespaces
@@ -76,6 +78,7 @@ Plugin 'bling/vim-airline'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'https://github.com/jlanzarotta/bufexplorer/'
 Plugin 'https://github.com/vim-ruby/vim-ruby'
+Plugin 'https://github.com/vim-scripts/OmniCppComplete'
 call vundle#end()
 filetype plugin indent on
 
@@ -102,7 +105,6 @@ set tags+=~/.vim/tags/cpp
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
 let OmniCpp_MayCompleteDot = 1 " autocomplete after .
 let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
 let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
