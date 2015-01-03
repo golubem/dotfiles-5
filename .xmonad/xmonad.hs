@@ -1,7 +1,6 @@
 -- beginning
 
 import XMonad
-import XMonad.Config.Kde
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.UrgencyHook
@@ -53,15 +52,14 @@ myManageHook = manageDocks <+> compHook <+> manageHook defaultConfig
 myLogHook xmproc = dynamicLogWithPP $ compPP { ppOutput = hPutStrLn xmproc }
   where
     compPP = defaultPP {
-        ppHidden  = xmobarColor "#a9acb6" ""
-      , ppCurrent = xmobarColor "#e2e2e2" "" . wrap "⠲" ""
-      , ppUrgent  = xmobarColor "#a9acb6" "" . wrap "*" "*"
-      , ppLayout  = xmobarColor "#ff0000" ""
-      , ppTitle   = (\str -> "")
-      , ppOrder   = \(ws:_:t:_) -> [ws, t]
-      , ppSep     = "<fc=#a9acb6> | </fc>"
-   }
-
+    ppHidden = xmobarColor "#a9acb6" ""
+    , ppCurrent = xmobarColor "#e2e2e2" "" . wrap "⠲" ""
+    , ppUrgent = xmobarColor "#a9acb6" "" . wrap "*" "*"
+    , ppLayout = xmobarColor "#ff0000" ""
+    , ppTitle = (\str -> "")
+    , ppOrder = \(ws:_:t:_) -> [ws, t]
+    , ppSep = "<fc=#a9acb6> | </fc>"
+    }
 
 main = do
     xmproc <- spawnPipe "/usr/bin/xmobar /home/mathcrosp/.xmonad/xmobarrc.hs"
@@ -74,7 +72,7 @@ main = do
       , borderWidth        = myBorderWidth
       , normalBorderColor  = myBorderColor
       , focusedBorderColor = myFocusedColor
-      , manageHook         = manageHook kdeConfig <+> myManageHook
+      , manageHook         = myManageHook
       , logHook            = myLogHook xmproc
       , focusFollowsMouse  = True
       , clickJustFocuses   = True
@@ -83,14 +81,16 @@ main = do
       , (( myModMask .|. shiftMask , xK_Print ), spawn "scrot -d 3")
       , (( controlMask, xK_F7 ), spawn "sleep 1 && xset dpms force off")
       -- apps
-      , (( myModMask, xK_o ), spawn "bless")
+      , (( myModMask, xK_o ), spawn "wxHexEditor")
+      , (( myModMask .|. shiftMask , xK_i ), spawn "ida")
       , (( myModMask .|. shiftMask , xK_x ), spawn "gvim")
       , (( myModMask .|. shiftMask , xK_g ), spawn "gimp")
       , (( myModMask .|. shiftMask , xK_f ), spawn "pidgin")
+      , (( myModMask .|. shiftMask , xK_t ), spawn "thunar")
       , (( myModMask .|. shiftMask , xK_b ), spawn "firefox")
-      , (( myModMask .|. shiftMask , xK_t ), spawn "nautilus")
+      , (( myModMask .|. shiftMask , xK_o ), spawn "VirtualBox")
       , (( myModMask .|. shiftMask , xK_n ), spawn "xfce4-mixer")
-      , (( myModMask .|. shiftMask , xK_d ), spawn "monodevelop-opt")
+      , (( myModMask .|. shiftMask , xK_d ), spawn "monodevelop")
       , (( myModMask .|. shiftMask , xK_v ), spawn "urxvt -e bash -c vifm")
       , (( myModMask .|. shiftMask , xK_p ), spawn "urxvt -e bash -c ncmpcpp")
       , (( myModMask .|. shiftMask , xK_z ), spawn "urxvt -e bash -c 'tmux a -t 0'")
