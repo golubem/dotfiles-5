@@ -1,32 +1,63 @@
-""" ~/.vimrc file
 
-""" general
 
-" main
+"""""""""""""""""""""""""""""" general
+
+
+" set path
 set path=.,,**
+
+" enable syntax highlight
 syn enable
+
+" enable lines numeration
 set number
-set tabstop=4
+
+" width of '>>' and '<<' shifts
 set shiftwidth=4
+
+" use spaces instead of tabs
 set expandtab
+
+" number of spaces used for tab
+set tabstop=4
+
+" tab at start of line will result in shift
 set smarttab
+
+" copy tab from previous line; add tab after '{' etc.
 set smartindent
+
+" show popup when using autocompletion in vim shell
 set wildmenu
+
+" completion popup
 set completeopt=longest,menuone
+
+" enable type-specific plugins loading
 filetype plugin on
+
+" make backspace work
 set backspace=indent,eol,start
 
-" gui options
+" make search case-insensitive
+set ignorecase
+
+" and make it case-sensitive when typing uppercase
+set smartcase
+
+" remove unused bars
 set guioptions-=T
 set guioptions-=m
 set guioptions-=r
 set guioptions-=L
+
+" set font in gvim
 set guifont=PragmataPro\ 10.5
 
-" colorscheme and window size
+" set colorscheme (and window size for gvim)
 if has('gui_running')
     colorscheme Tomorrow-Night-Blue
-    set lines=35 columns=85
+    set lines=35 columns=120
 else
     colorscheme elflord
 endif
@@ -66,7 +97,9 @@ nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
 
-""" plugins
+
+"""""""""""""""""""""""""""""" plugins
+
 
 " vundle
 set nocompatible
@@ -95,11 +128,6 @@ endif
 " nerdtree
 hi NERDTreeDir ctermfg=darkblue
 
-" vim-ruby
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-
 " omnicppcomplete
 set tags+=~/.vim/tags/cpp
 let OmniCpp_NamespaceSearch = 1
@@ -111,3 +139,5 @@ let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
+
+
