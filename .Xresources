@@ -1,0 +1,15 @@
+! .Xresources
+
+*.foreground: #fcfcfc
+*.background: #080808
+
+urxvt*transparent: false
+urxvt*shading: 5
+urxvt*saveLines: 4500
+urxvt*scrollBar: false
+urxvt*letterSpace: -2
+urxvt*cursorBlink: true
+urxvt*urlLauncher: firefox
+urxvt*perl-ext-common: osc-xterm-clipboard
+
+urxvt*font: xft:Pragmata Pro:regular:size=10.5
