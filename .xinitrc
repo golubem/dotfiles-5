@@ -5,15 +5,15 @@ for f in /etc/X11/xinit/xinitrc.d/*; do
 done
 unset f
 fi
-# set the cursor
-xsetroot -cursor_name left_ptr
-# set background
-xsetroot -solid "#080808"
-# set key freq
-xset r rate 200 50
-# start xmonad and apps
-unclutter &
+xsetroot -cursor_name left_ptr &
+xsetroot -solid "#080808" &
 stalonetray &
+unclutter &
 nm-applet &
 xfce4-power-manager &
-exec xmonad
+start-pulseaudio-x11 &
+xscreensaver -no-splash &
+xfce4-volumed-pulse &
+xfsettingsd &
+xterm -e "/usr/bin/xset r rate 200 50" &
+exec dbus-launch xmonad
