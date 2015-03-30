@@ -51,7 +51,7 @@ set ruler
 set cursorline
 
 " set colorscheme
-colorscheme delek
+colorscheme desert
 
 " lines above/below cursor
 set scrolloff=4
@@ -59,16 +59,23 @@ set scrolloff=4
 " remove unwanted whitespaces
 autocmd BufWritePre * :%s/\s\+$//e
 
+" highlight long lines
+let w:m1=matchadd('Search', '\%<80v.\%>79v', -1)
+let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+
 " make shortcuts
-map <F5> :!gcc -std=c99 -Wall -Werror -pedantic -O2 "%" -o "%:r" && ./"%:r" <Return>
-map <F6> :!g++ -std=c++11 -Wall -Werror -O2 "%" -o "%:r" && ./"%:r" <Return>
+map <F5> :!gcc -std=c99 -Wall -Werror -pedantic -O2 "%" -o "%:r" && ./"%:r"
+map <F6> :!g++ -std=c++11 -Wall -Werror -O2 "%" -o "%:r" && ./"%:r"
+map <F7> :!python3 "%"
 
 " :set paste shortcut
 set pastetoggle=<F12>
 
 " keybindings
 let mapleader = ","
+nnoremap <S-w> :w<Return>
 nnoremap <Leader>s :%s//<Left>
+vnoremap <S-w> :w<Return>
 vnoremap <Leader>s :s//<Left>
 vnoremap < <gv
 vnoremap > >gv
@@ -77,7 +84,7 @@ inoremap <C-o> <C-x><C-o>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Return>
-nmap <C-j> <C-w>j
+nmap <C-j> <Cw>j
 nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
