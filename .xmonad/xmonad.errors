@@ -1,0 +1,25 @@
+
+xmonad.hs:64:9: Warning:
+    In the use of `captureWorkspacesWhen'
+    (imported from XMonad.Util.WorkspaceScreenshot, but defined in xmonad-screenshot-0.1.0.0:XMonad.Util.WorkspaceScreenshot.Internal):
+    "Make sure you add `initCapturing' before `xmonad' call in xmonad.hs"
+
+xmonad.hs:64:31: Warning:
+    In the use of `defaultPredicate'
+    (imported from XMonad.Util.WorkspaceScreenshot, but defined in xmonad-screenshot-0.1.0.0:XMonad.Util.WorkspaceScreenshot.Internal):
+    "Make sure you add `initCapturing' before `xmonad' call in xmonad.hs"
+
+xmonad.hs:64:48: Warning:
+    In the use of `defaultHook'
+    (imported from XMonad.Util.WorkspaceScreenshot, but defined in xmonad-screenshot-0.1.0.0:XMonad.Util.WorkspaceScreenshot.Internal):
+    "Make sure you add `initCapturing' before `xmonad' call in xmonad.hs"
+
+xmonad.hs:64:60: Warning:
+    In the use of `horizontally'
+    (imported from XMonad.Util.WorkspaceScreenshot, but defined in xmonad-screenshot-0.1.0.0:XMonad.Util.WorkspaceScreenshot.Internal):
+    "Make sure you add `initCapturing' before `xmonad' call in xmonad.hs"
+
+xmonad.hs:102:5: Warning:
+    In the use of `initCapturing'
+    (imported from XMonad.Util.WorkspaceScreenshot, but defined in xmonad-screenshot-0.1.0.0:XMonad.Util.WorkspaceScreenshot.Internal):
+    "Make sure you add `initCapturing' before `xmonad' call in xmonad.hs"
