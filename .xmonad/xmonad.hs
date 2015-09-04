@@ -14,7 +14,6 @@ import qualified XMonad.StackSet as W
 import XMonad.Util.Cursor
 import XMonad.Util.EZConfig
 import XMonad.Util.Run (spawnPipe)
-import XMonad.Util.WorkspaceScreenshot
 import System.IO
 
 myModMask  = mod4Mask
@@ -43,7 +42,7 @@ myManageHook = manageDocks <+> compHook <+> manageHook defaultConfig
     where compHook = composeAll
                  [ className =? "Firefox"    --> doShift "5"
                  , className =? "Pidgin"     --> doShift "4"
-                 , className =? "VirtualBox" --> doShift "7"
+                 , className =? "Telegram"   --> doShift "4"
                  ]
 
 myLogHook xmproc = dynamicLogWithPP $ compPP { ppOutput = hPutStrLn xmproc }
@@ -60,21 +59,14 @@ myLogHook xmproc = dynamicLogWithPP $ compPP { ppOutput = hPutStrLn xmproc }
 
 myKeys =
       [ (( myModMask, xK_Print ), spawn "scrot")
-      , (( myModMask .|. shiftMask , xK_Print ),captureWorkspacesWhen defaultPredicate defaultHook horizontally)
       , (( controlMask, xK_F7 ), spawn "sleep 1 && xset dpms force off")
       -- apps
       , (( myModMask, xK_z ), spawn "urxvt")
-      , (( myModMask .|. shiftMask , xK_b ), spawn "firefox")
       , (( myModMask .|. shiftMask , xK_h ), spawn "urxvt -e bash -c htop")
+      , (( myModMask .|. shiftMask , xK_a ), spawn "urxvt -e bash -c atop")
       , (( myModMask .|. shiftMask , xK_v ), spawn "urxvt -e bash -c vifm")
-      , (( myModMask .|. shiftMask , xK_p ), spawn "urxvt -e bash -c ncmpcpp")
       , (( myModMask .|. shiftMask , xK_z ), spawn "urxvt -e bash -c 'tmux a -t 0'")
-      -- mpd
-      , (( myModMask, xK_Left), spawn "mpc prev")
-      , (( myModMask .|. shiftMask, xK_Left), spawn "mpc seek -00:00:05")
-      , (( myModMask, xK_Down), spawn "mpc toggle")
-      , (( myModMask .|. shiftMask, xK_Right), spawn "mpc seek +00:00:05")
-      , (( myModMask, xK_Right), spawn "mpc next")
+      , (( myModMask, xK_d ), spawn "dmenu_run -nb '#080808' -sb '#d1d1d1' -sf '#080808'")
       -- workspaces
       , (( myModMask, xK_0), windows $ W.greedyView "10")
       , (( shiftMask .|. myModMask, xK_0), windows $ W.shift "10")
@@ -97,7 +89,6 @@ myKeys =
       ]
 
 main = do
-    initCapturing
     xmproc <- spawnPipe "/usr/bin/xmobar /home/mathcrosp/.xmonad/xmobarrc.hs"
     spawn "setxkbmap -layout 'us,ru' -option gpr:caps_toggle"
     xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig {

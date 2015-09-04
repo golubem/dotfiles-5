@@ -1,11 +1,11 @@
 Config {
-    font = "xft:Tewi:pixelsize=10"
+    font = "xft:fixed:pixelsize=12"
   , bgColor = "#080808"
   , fgColor = "#f1f1f1"
   , position = TopW C 100
   , border = NoBorder
   , commands = [
-         Run Date "%H:%M" "date" 10
+         Run Date "%H:%M:%S" "date" 10
        , Run MultiCpu ["-t", "<total>%", "-L", "3", "#a9acb6"] 10
        , Run Memory ["-t", "<usedratio>%"] 10
        , Run Com "/home/mathcrosp/.xmonad/scripts/vols.sh" [] "vol" 10
@@ -17,6 +17,6 @@ Config {
   ]
   , sepChar = "%"
   , alignSep = "}{"
-  , template = "   %StdinReader%   }{ [VOL %vol%] [CPU %multicpu%] [MEM %memory%] [%temp%] [BAT%battery%] [%layout%] [%date%]        "
+  , template = "   %StdinReader%   }{ [VOL %vol%] [CPU %multicpu%] [MEM %memory%] [%temp%] [BAT%battery%] [%layout%] [%date%]                         "
 }
 
