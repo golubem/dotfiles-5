@@ -5,8 +5,9 @@ set path=.,,**
 " enable syntax highlight
 syn enable
 
-" enable lines numeration
+" enable hybrid line numeration
 set number
+set relativenumber
 
 " enable mouse
 set mouse=a
@@ -22,6 +23,9 @@ set tabstop=4
 
 " tab at start of line will result in shift
 set smarttab
+
+" don't fit long lines to window width
+set nowrap
 
 " copy tab from previous line; add tab after '{' etc.
 set smartindent
@@ -51,7 +55,7 @@ set ruler
 set cursorline
 
 " set colorscheme
-colorscheme desert
+colorscheme Tomorrow-Night-Blue
 
 " lines above/below cursor
 set scrolloff=4
@@ -84,8 +88,7 @@ inoremap <C-o> <C-x><C-o>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Return>
-nmap <C-j> <Cw>j
+nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
-
