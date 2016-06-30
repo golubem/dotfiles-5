@@ -55,7 +55,7 @@ set ruler
 set cursorline
 
 " set colorscheme
-colorscheme Tomorrow-Night-Blue
+colorscheme morning
 
 " lines above/below cursor
 set scrolloff=4
@@ -71,6 +71,7 @@ let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 map <F5> :!gcc -std=c99 -Wall -Werror -pedantic -O2 "%" -o "%:r" && ./"%:r"
 map <F6> :!g++ -std=c++11 -Wall -Werror -O2 "%" -o "%:r" && ./"%:r"
 map <F7> :!python3 "%"
+map <F8> :!ghc "%" &&  ./"%:r"
 
 " :set paste shortcut
 set pastetoggle=<F12>
@@ -79,6 +80,7 @@ set pastetoggle=<F12>
 let mapleader = ","
 nnoremap <S-w> :w<Return>
 nnoremap <Leader>s :%s//<Left>
+vnoremap kj <Esc>
 vnoremap <S-w> :w<Return>
 vnoremap <Leader>s :s//<Left>
 vnoremap < <gv
