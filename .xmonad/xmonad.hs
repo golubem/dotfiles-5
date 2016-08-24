@@ -23,11 +23,11 @@ myWorkspaces :: [WorkspaceId]
 myWorkspaces = map show [1..18]
 
 myLayoutHook =
-    onWorkspace (myWorkspaces !! 0 ) ( full ||| tiled ||| fullSp ) $
-    onWorkspace (myWorkspaces !! 4 ) ( full ||| fullSp ) $
-    onWorkspace (myWorkspaces !! 5 ) ( full ||| fullSp ) $
-    onWorkspace (myWorkspaces !! 6 ) ( full ||| tiled ||| fullSp ) $
-    full ||| tiled ||| fullSp
+    onWorkspace (myWorkspaces !! 0 ) ( full ||| tiled ) $
+    onWorkspace (myWorkspaces !! 4 ) ( full ||| tiled ) $
+    onWorkspace (myWorkspaces !! 5 ) ( full ) $
+    onWorkspace (myWorkspaces !! 6 ) ( full ||| tiled ) $
+    full ||| tiled
   where
     tiled       = spacing 0 $ Tall master delta ratio
     defaultTall = ResizableTall 1 (1/100) (1/2) []
@@ -35,8 +35,6 @@ myLayoutHook =
     ratio       = 1/2
     delta       = 1/100
     full        = spacing 0 $ Full
-    fullSp      = spacing 40 $ Full
-
 
 myManageHook = manageDocks <+> compHook <+> manageHook defaultConfig
     where compHook = composeAll
@@ -57,8 +55,20 @@ myLogHook xmproc = dynamicLogWithPP $ compPP { ppOutput = hPutStrLn xmproc }
     , ppSep     = "<fc=#a9acb6> | </fc>"
     }
 
+myStartupHook :: X ()
+myStartupHook = do
+    spawn "xsetroot -cursor_name left_ptr"
+    spawn "xsetroot -solid '#080808'"
+    spawn "xset r rate 200 80"
+    spawn "unclutter"
+    spawn "stalonetray"
+    spawn "nm-applet"
+    spawn "xfce4-volumed"
+
 myKeys =
-      [ (( myModMask, xK_Print ), spawn "scrot")
+      [ (( myModMask, xK_Print ), spawn "gnome-screenshot")
+      , (( myModMask .|. shiftMask , xK_Print ), spawn "gnome-screenshot -w")
+      , (( controlMask .|. shiftMask , xK_Print ), spawn "gnome-screenshot -a")
       , (( controlMask, xK_F7 ), spawn "sleep 1 && xset dpms force off")
       -- apps
       , (( myModMask, xK_z ), spawn "urxvt")
@@ -66,26 +76,27 @@ myKeys =
       , (( myModMask .|. shiftMask , xK_a ), spawn "urxvt -e bash -c atop")
       , (( myModMask .|. shiftMask , xK_v ), spawn "urxvt -e bash -c vifm")
       , (( myModMask .|. shiftMask , xK_z ), spawn "urxvt -e bash -c 'tmux a -t 0'")
+      , (( myModMask .|. shiftMask , xK_n ), spawn "nautilus")
       , (( myModMask, xK_d ), spawn "dmenu_run -nb '#080808' -sb '#d1d1d1' -sf '#080808'")
       -- workspaces
       , (( myModMask, xK_0), windows $ W.greedyView "10")
-      , (( shiftMask .|. myModMask, xK_0), windows $ W.shift "10")
+      , (( myModMask .|. shiftMask, xK_0), windows $ W.shift "10")
       , (( myModMask, xK_F1), windows $ W.greedyView "11")
-      , (( shiftMask .|. myModMask, xK_F1), windows $ W.shift "11")
+      , (( myModMask .|. shiftMask, xK_F1), windows $ W.shift "11")
       , (( myModMask, xK_F2), windows $ W.greedyView "12")
-      , (( shiftMask .|. myModMask, xK_F2), windows $ W.shift "12")
+      , (( myModMask .|. shiftMask, xK_F2), windows $ W.shift "12")
       , (( myModMask, xK_F3), windows $ W.greedyView "13")
-      , (( shiftMask .|. myModMask, xK_F3), windows $ W.shift "13")
+      , (( myModMask .|. shiftMask, xK_F3), windows $ W.shift "13")
       , (( myModMask, xK_F4), windows $ W.greedyView "14")
-      , (( shiftMask .|. myModMask, xK_F4), windows $ W.shift "14")
+      , (( myModMask .|. shiftMask, xK_F4), windows $ W.shift "14")
       , (( myModMask, xK_F5), windows $ W.greedyView "15")
-      , (( shiftMask .|. myModMask, xK_F5), windows $ W.shift "15")
+      , (( myModMask .|. shiftMask, xK_F5), windows $ W.shift "15")
       , (( myModMask, xK_F6), windows $ W.greedyView "16")
-      , (( shiftMask .|. myModMask, xK_F6), windows $ W.shift "16")
+      , (( myModMask .|. shiftMask, xK_F6), windows $ W.shift "16")
       , (( myModMask, xK_F7), windows $ W.greedyView "17")
-      , (( shiftMask .|. myModMask, xK_F7), windows $ W.shift "17")
+      , (( myModMask .|. shiftMask, xK_F7), windows $ W.shift "17")
       , (( myModMask, xK_F8), windows $ W.greedyView "18")
-      , (( shiftMask .|. myModMask, xK_F8), windows $ W.shift "18")
+      , (( myModMask .|. shiftMask, xK_F8), windows $ W.shift "18")
       ]
 
 main = do
@@ -98,6 +109,7 @@ main = do
       , terminal           = myTerminal
       , manageHook         = myManageHook
       , logHook            = myLogHook xmproc
+      , startupHook        = myStartupHook
       , focusFollowsMouse  = True
       , clickJustFocuses   = True
     } `additionalKeys` myKeys
