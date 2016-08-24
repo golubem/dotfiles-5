@@ -55,7 +55,9 @@ set ruler
 set cursorline
 
 " set colorscheme
-colorscheme morning
+" colorscheme morning
+colorscheme evening
+" colorscheme elflord
 
 " lines above/below cursor
 set scrolloff=4
@@ -67,11 +69,10 @@ autocmd BufWritePre * :%s/\s\+$//e
 let w:m1=matchadd('Search', '\%<80v.\%>79v', -1)
 let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 
-" make shortcuts
+" code running shortcuts
 map <F5> :!gcc -std=c99 -Wall -Werror -pedantic -O2 "%" -o "%:r" && ./"%:r"
 map <F6> :!g++ -std=c++11 -Wall -Werror -O2 "%" -o "%:r" && ./"%:r"
 map <F7> :!python3 "%"
-map <F8> :!ghc "%" &&  ./"%:r"
 
 " :set paste shortcut
 set pastetoggle=<F12>
@@ -94,3 +95,7 @@ nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
+
+" filetype specific settings
+autocmd FileType c setlocal shiftwidth=2 tabstop=2
+autocmd FileType sh setlocal shiftwidth=2 tabstop=2
